@@ -92,6 +92,9 @@ class MouseControls(QWidget):
         relative_y = delta_y / self.viewer.window.qt_viewer.height()
 
         if self.mode == "Zoom":
+            if y == 0:
+                # workaround for strange events during zoom
+                return
             self.viewer.camera.zoom = self._start_zoom * (1 + relative_y)
             print("zoom", relative_y)
         elif self.mode == "Slicing":
